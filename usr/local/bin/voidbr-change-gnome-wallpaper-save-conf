@@ -57,7 +57,7 @@ trap 'rm -f "$tmp"' EXIT
 head -c 65536 >"$tmp"
 
 re_vazia='^[[:space:]]*(#.*)?$'
-re_chave="^[[:space:]]*(WALLPAPER_DIR|INTERVAL|DISABLED|FIXED_WALLPAPER)=([A-Za-z0-9_./+:@%,-]*|'([^']|'\\\\'')*')$"
+re_chave="^[[:space:]]*(WALLPAPER_DIR|INTERVAL|DISABLED|FIXED_WALLPAPER|START_WALLPAPER)=([A-Za-z0-9_./+:@%,-]*|'([^']|'\\\\'')*')$"
 
 n=0
 while IFS= read -r linha || [ -n "$linha" ]; do

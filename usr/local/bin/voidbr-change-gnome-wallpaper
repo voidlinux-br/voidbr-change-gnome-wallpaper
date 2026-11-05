@@ -6,7 +6,7 @@
 #  Aplica wallpapers do diretório em sequência
 #
 #  Created: 2025/09/13 - 12:34
-#  Altered: 2026/10/04 - 18:00
+#  Altered: 2026/11/05 - 00:50
 #
 #  Copyright (c) 2025-2026, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
@@ -34,6 +34,15 @@
 #export LANGUAGE=pt_BR
 export TEXTDOMAINDIR=/usr/share/locale
 export TEXTDOMAIN=voidbr-change-gnome-wallpaper
+
+# Cores só com terminal: no slideshow (autostart) não há $TERM e o tput
+# encheria o log da sessão com "No value for $TERM"
+_cores=0
+[ -t 1 ] && [ -n "${TERM:-}" ] && _cores=1
+tput() {
+	[ "$_cores" = 1 ] && command tput "$@" 2>/dev/null
+	return 0
+}
 
 # Definir a variável de controle para restaurar a formatação original
 reset=$(tput sgr0)
@@ -86,6 +95,8 @@ trap 'MostraErro "$APP[$FUNCNAME][$LINENO]" "$BASH_COMMAND" "$?"; exit 1' ERR
 
 CONFIG=/etc/voidbr-change-gnome-wallpaper.conf
 WALLPAPER_DIR_DEFAULT="/usr/share/backgrounds/voidbr"
+# Imagem do início da sessão (--inicio). Vazio no .conf = começa pelo slideshow
+START_WALLPAPER="/usr/share/backgrounds/voidbr/voidbr-wallpaper.avif"
 STATE_FILE="$HOME/.cache/${APP}/gnome-wallpaper-state"
 
 # Pasta dos wallpapers: vem do .conf (WALLPAPER_DIR); vazio ou ausente usa o padrão
@@ -107,8 +118,14 @@ apply_wallpaper() {
 	fi
 }
 
-# Uso: voidbr-change-gnome-wallpaper [/caminho/imagem]
-# Com argumento: aplica essa imagem (wallpaper fixo) e não mexe no slideshow
+# Uso: voidbr-change-gnome-wallpaper [--inicio | /caminho/imagem]
+# --inicio: início da sessão; aplica o START_WALLPAPER e o slideshow continua dele
+# Com caminho: aplica essa imagem (wallpaper fixo) e não mexe no slideshow
+INICIO=0
+if [ "${1:-}" = "--inicio" ]; then
+	INICIO=1
+	shift
+fi
 if [ -n "$1" ]; then
 	if [ ! -f "$1" ]; then
 		echo "${APP}: arquivo não encontrado: $1" >&2
@@ -140,6 +157,18 @@ TOTAL=${#FILES[@]}
 if [ "$TOTAL" -eq 0 ]; then
 	echo "${APP}: nenhuma imagem em $WALLPAPER_DIR" >&2
 	exit 1
+fi
+
+# Início da sessão: começa no START_WALLPAPER (o próximo da fila vem depois dele)
+if [ "$INICIO" = 1 ] && [ -n "$START_WALLPAPER" ] && [ -f "$START_WALLPAPER" ]; then
+	apply_wallpaper "$START_WALLPAPER"
+	for i in "${!FILES[@]}"; do
+		if [ "${FILES[$i]}" = "$START_WALLPAPER" ]; then
+			echo "$i" >"$STATE_FILE"
+			break
+		fi
+	done
+	exit 0
 fi
 
 # Se não existir state file, começa no 0

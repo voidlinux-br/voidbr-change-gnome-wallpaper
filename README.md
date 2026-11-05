@@ -55,6 +55,10 @@ DISABLED=no
 # Wallpaper fixo (caminho completo da imagem)
 # vazio = slideshow com os wallpapers da pasta
 FIXED_WALLPAPER=
+
+# Wallpaper do início da sessão (o slideshow continua a partir dele)
+# vazio = começa direto pelo slideshow
+START_WALLPAPER=/usr/share/backgrounds/voidbr/voidbr-wallpaper.avif
 ```
 
 | Chave | Valores | Efeito |
@@ -63,6 +67,7 @@ FIXED_WALLPAPER=
 | `INTERVAL` | número de segundos | Tempo entre as trocas. Valor inválido vira 300 (5 min). |
 | `DISABLED` | `yes`, `true`, `1` desativam; qualquer outro valor (ou ausente) ativa | Com `yes`, o timer continua rodando mas não troca o wallpaper. |
 | `FIXED_WALLPAPER` | caminho de uma imagem, ou vazio | Se preenchido e o arquivo existir, mantém sempre essa imagem em vez do slideshow. Se o arquivo sumir, volta ao slideshow. |
+| `START_WALLPAPER` | caminho de uma imagem, ou vazio | Imagem mostrada no início da sessão; o slideshow continua a partir dela. Ausente (em `.conf` antigos) usa `/usr/share/backgrounds/voidbr/voidbr-wallpaper.avif`; vazio começa direto pelo slideshow. |
 
 Caminhos com espaço precisam de aspas:
 

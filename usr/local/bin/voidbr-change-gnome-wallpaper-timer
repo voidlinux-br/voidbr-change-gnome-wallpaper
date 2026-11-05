@@ -6,7 +6,7 @@
 #  Aplica wallpapers do diretório em sequência
 #
 #  Created: 2025/09/13 - 12:34
-#  Altered: 2026/10/04 - 18:40
+#  Altered: 2026/11/05 - 00:50
 #
 #  Copyright (c) 2025-2026, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
@@ -111,6 +111,7 @@ if command -v flock >/dev/null 2>&1; then
 	fi
 fi
 
+primeira=1
 while :; do
 	load_config
 
@@ -124,9 +125,15 @@ while :; do
 		else
 			[ -n "$FIXED_WALLPAPER" ] &&
 				echo "FIXED_WALLPAPER=$FIXED_WALLPAPER não encontrado. Usando slideshow." >&2
-			"$BINARY"
+			if [ "$primeira" = 1 ]; then
+				# início da sessão: começa no START_WALLPAPER (voidbr-wallpaper.avif)
+				"$BINARY" --inicio
+			else
+				"$BINARY"
+			fi
 		fi
 	fi
+	primeira=0
 
 	wait_interval
 done
