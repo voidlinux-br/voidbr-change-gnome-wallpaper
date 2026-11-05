@@ -25,7 +25,7 @@ Feito para o [VoidBR Linux](https://voidbr.org).
 | `/etc/voidbr-change-gnome-wallpaper.conf` | Configuração |
 
 Os wallpapers do slideshow vêm da pasta definida em `WALLPAPER_DIR` (padrão:
-`/usr/share/backgrounds/chililinux`). Só as imagens entram no slideshow (`.jpg`, `.jpeg`,
+`/usr/share/backgrounds/voidbr`). Só as imagens entram no slideshow (`.jpg`, `.jpeg`,
 `.png`, `.webp`, `.svg`, `.bmp`, `.jxl`, `.avif`); outros arquivos da pasta são ignorados.
 A posição atual fica em `~/.cache/voidbr-change-gnome-wallpaper/`, então cada usuário tem a sua sequência.
 
@@ -42,8 +42,8 @@ iniciar na sessão atual, rode `voidbr-change-gnome-wallpaper-timer &` ou use o 
 
 ```sh
 # Pasta com os wallpapers do slideshow
-# vazio = /usr/share/backgrounds/chililinux
-WALLPAPER_DIR=/usr/share/backgrounds/chililinux
+# vazio = /usr/share/backgrounds/voidbr
+WALLPAPER_DIR=/usr/share/backgrounds/voidbr
 
 # Intervalo em segundos
 INTERVAL=60
@@ -59,7 +59,7 @@ FIXED_WALLPAPER=
 
 | Chave | Valores | Efeito |
 |---|---|---|
-| `WALLPAPER_DIR` | caminho de uma pasta, ou vazio | Pasta usada no slideshow. Vazio (ou ausente, em `.conf` antigos) usa `/usr/share/backgrounds/chililinux`. |
+| `WALLPAPER_DIR` | caminho de uma pasta, ou vazio | Pasta usada no slideshow. Vazio (ou ausente, em `.conf` antigos) usa `/usr/share/backgrounds/voidbr`. |
 | `INTERVAL` | número de segundos | Tempo entre as trocas. Valor inválido vira 300 (5 min). |
 | `DISABLED` | `yes`, `true`, `1` desativam; qualquer outro valor (ou ausente) ativa | Com `yes`, o timer continua rodando mas não troca o wallpaper. |
 | `FIXED_WALLPAPER` | caminho de uma imagem, ou vazio | Se preenchido e o arquivo existir, mantém sempre essa imagem em vez do slideshow. Se o arquivo sumir, volta ao slideshow. |
@@ -109,7 +109,7 @@ aceita comentários, linhas vazias e as chaves `WALLPAPER_DIR`, `INTERVAL`, `DIS
 voidbr-change-gnome-wallpaper
 
 # aplica uma imagem específica (não mexe na posição do slideshow)
-voidbr-change-gnome-wallpaper /usr/share/backgrounds/chililinux/wallpaper.jpg
+voidbr-change-gnome-wallpaper /usr/share/backgrounds/voidbr/voidbr-wallpaper.avif
 ```
 
 ## Dependências

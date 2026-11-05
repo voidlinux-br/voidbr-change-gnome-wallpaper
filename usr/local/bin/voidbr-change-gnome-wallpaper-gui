@@ -122,7 +122,7 @@ TIMER = "voidbr-change-gnome-wallpaper-timer"
 TIMER_BIN = "/usr/local/bin/voidbr-change-gnome-wallpaper-timer"
 SALVAR_BIN = "/usr/local/bin/voidbr-change-gnome-wallpaper-save-conf"
 PREVIA_L = 1280  # largura máxima da prévia do wallpaper atual
-PASTA_PADRAO = "/usr/share/backgrounds/chililinux"
+PASTA_PADRAO = "/usr/share/backgrounds/voidbr"
 ESQUEMA_FUNDO = "org.gnome.desktop.background"
 
 # mesmos valores do .conf distribuído no pacote

@@ -85,7 +85,7 @@ MostraErro() {
 trap 'MostraErro "$APP[$FUNCNAME][$LINENO]" "$BASH_COMMAND" "$?"; exit 1' ERR
 
 CONFIG=/etc/voidbr-change-gnome-wallpaper.conf
-WALLPAPER_DIR_DEFAULT="/usr/share/backgrounds/chililinux"
+WALLPAPER_DIR_DEFAULT="/usr/share/backgrounds/voidbr"
 STATE_FILE="$HOME/.cache/${APP}/gnome-wallpaper-state"
 
 # Pasta dos wallpapers: vem do .conf (WALLPAPER_DIR); vazio ou ausente usa o padrão
